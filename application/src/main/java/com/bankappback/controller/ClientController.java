@@ -42,7 +42,7 @@ public class ClientController {
 	 * @param productId
 	 * @return
 	 */
-	@Operation(summary = "Create client", tags = { "client" })
+	@Operation(summary = "Create client", tags = { "Client" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = Client.class))),
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),

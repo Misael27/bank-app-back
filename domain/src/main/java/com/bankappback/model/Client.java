@@ -51,7 +51,9 @@ public class Client extends Person implements ICommonDomain {
     @Override
     @JsonIgnore
     public boolean isValid() {
-    	if (Strings.isEmpty(name)) {
+    	if (Strings.isEmpty(name) || Objects.isNull(gender) || Objects.isNull(birthdate) || birthdate.after(new Date())
+    			|| Strings.isEmpty(personId) || Strings.isEmpty(address) || Strings.isEmpty(phone) || Strings.isEmpty(password)
+    			|| Objects.isNull(state)) {
     		return false;
     	}
     	return true;

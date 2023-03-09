@@ -1,5 +1,6 @@
 package com.bankappback.service.impl;
 
+import com.bankappback.exception.ResourceBadRequestException;
 import com.bankappback.model.Client;
 import com.bankappback.repository.IClientRepository;
 import com.bankappback.service.IClientService;
@@ -15,7 +16,7 @@ public class ClientService implements IClientService{
 	@Override
 	public void create(Client client) {
 		if(!client.isValid()) {
-			return;
+			throw new ResourceBadRequestException("INVALID_REQUEST");
 		}
 		client.encryptPassword();
 		clientRepository.save(client);

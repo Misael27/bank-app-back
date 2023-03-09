@@ -5,6 +5,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -56,10 +57,27 @@ public class GlobalExceptionHandler {
 	}
 	
 	/**
-	 * globalExceptionHandling
+	 * methodArgumentNotValidExceptionHandling
 	 * 
 	 * @param exception
 	 * @param request
+	 * @return
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<?> methodArgumentNotValidExceptionHandling(MethodArgumentNotValidException exception, WebRequest request) {
+		final ErrorDetails errorDetails = new ErrorDetails(
+				new Date(), 
+				"INVALID_REQUEST_PARAMETERS", 
+				400,
+				 HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	/**
+	 * globalExceptionHandling
+	 * 
+	 * @param exception
+	 * @param request 
 	 * @return ResponseEntity<?>
 	 */
 	@ExceptionHandler(Exception.class)
