@@ -9,5 +9,7 @@ public interface IClientService {
 	 * @param client
 	 */
 	void create(Client client);
+
+	Client update(Long clientId, Client clientUpdate);
 	
 }

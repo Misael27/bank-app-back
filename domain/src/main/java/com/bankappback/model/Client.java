@@ -61,10 +61,26 @@ public class Client extends Person implements ICommonDomain {
     
     @JsonIgnore
     public void encryptPassword() {
-    	int strength = 10; // work factor of bcrypt
-    	 BCryptPasswordEncoder bCryptPasswordEncoder =
-    	  new BCryptPasswordEncoder(strength, new SecureRandom());
-    	 password = bCryptPasswordEncoder.encode(password);
+    	 password = getEncryptPass(password);
     }
+    
+    @JsonIgnore
+    private String getEncryptPass(String plainPassword) {
+    	int strength = 10; // work factor of bcrypt
+	   	BCryptPasswordEncoder bCryptPasswordEncoder =
+	   	new BCryptPasswordEncoder(strength, new SecureRandom());
+	   	return bCryptPasswordEncoder.encode(plainPassword);
+    }
+
+    @JsonIgnore
+	public void update(Client clientUpdate) {
+		name = !Objects.isNull(clientUpdate.getName()) ? clientUpdate.getName() : name;
+		gender = !Objects.isNull(clientUpdate.getGender()) ? clientUpdate.getGender() : gender;
+		birthdate = !Objects.isNull(clientUpdate.getBirthdate()) ? clientUpdate.getBirthdate() : birthdate;
+		personId = !Objects.isNull(clientUpdate.getPersonId()) ? clientUpdate.getPersonId() : personId;
+		address = !Objects.isNull(clientUpdate.getAddress()) ? clientUpdate.getAddress() : address;
+		phone = !Objects.isNull(clientUpdate.getPhone()) ? clientUpdate.getPhone() : phone;
+		password = !Objects.isNull(clientUpdate.getPassword()) ? getEncryptPass(clientUpdate.getPassword()) : password;
+	}
     
 }

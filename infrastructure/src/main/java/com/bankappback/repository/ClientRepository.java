@@ -1,5 +1,7 @@
 package com.bankappback.repository;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,18 @@ public class ClientRepository implements IClientRepository {
 		ClientTable clientTable = this.mapper.map(client, ClientTable.class);
 		springDataClientRepository.save(clientTable);
 		client.setId(clientTable.getId());
+	}
+
+	@Override
+	public Boolean existsByPersonId(String personId) {
+		return springDataClientRepository.existsByPersonId(personId);
+	}
+
+	@Override
+	public Optional<Client> findById(Long id) {
+		ClientTable result = springDataClientRepository.findById(id).orElse(null);
+		Client client = result != null ? mapper.map(result, Client.class) : null;
+		return Optional.of(client);
 	}
 	
 }
