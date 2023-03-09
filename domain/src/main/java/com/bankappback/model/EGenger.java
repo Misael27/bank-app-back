@@ -1,4 +1,4 @@
-package com.bankappback.mapping;
+package com.bankappback.model;
 
 /**
  * 

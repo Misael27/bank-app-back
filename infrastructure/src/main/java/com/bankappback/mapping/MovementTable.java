@@ -2,6 +2,8 @@ package com.bankappback.mapping;
 
 import java.util.Date;
 
+import com.bankappback.model.EMovementType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

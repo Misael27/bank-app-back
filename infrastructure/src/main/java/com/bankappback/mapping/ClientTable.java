@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.util.Date;
 
+import com.bankappback.model.EGenger;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,7 +33,7 @@ public class ClientTable {
 	private Long id;
 	
     @Column(name = "name", length = 100, nullable = false)
-	String name;
+	private String name;
     
     @Column(name = "gender", length = 10, nullable = false)
 	@Enumerated(EnumType.STRING)

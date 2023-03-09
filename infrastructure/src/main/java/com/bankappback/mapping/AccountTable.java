@@ -1,6 +1,8 @@
 package com.bankappback.mapping;
 
 
+import com.bankappback.model.EAccountType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
