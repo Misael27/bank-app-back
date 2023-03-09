@@ -2,6 +2,8 @@ package com.bankappback.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,6 +28,7 @@ public class Person {
 	protected EGenger gender;
     
 	@NotNull(message = "BIRTHDATE_NOT_NULL")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	protected Date birthdate;
     
 	@NotNull(message = "PERSONID_NOT_NULL")

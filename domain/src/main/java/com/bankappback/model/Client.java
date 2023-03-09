@@ -5,11 +5,17 @@ import java.util.Date;
 import java.util.Objects;
 
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.MessageDigest;  
 
 /**
  * 
@@ -43,11 +49,20 @@ public class Client extends Person implements ICommonDomain {
     }
     
     @Override
+    @JsonIgnore
     public boolean isValid() {
     	if (Strings.isEmpty(name)) {
     		return false;
     	}
     	return true;
+    }
+    
+    @JsonIgnore
+    public void encryptPassword() {
+    	int strength = 10; // work factor of bcrypt
+    	 BCryptPasswordEncoder bCryptPasswordEncoder =
+    	  new BCryptPasswordEncoder(strength, new SecureRandom());
+    	 password = bCryptPasswordEncoder.encode(password);
     }
     
 }

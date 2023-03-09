@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @PropertySources({
     @PropertySource("classpath:application.properties")
 })
-@OpenAPIDefinition(info = @Info(title = "SimilarProducts", version = "1.0", description = ""))
+@OpenAPIDefinition(info = @Info(title = "Bank App Back", version = "1.0", description = ""))
 public class Application {	
 
 	public static void main(String[] args) {

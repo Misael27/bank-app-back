@@ -17,6 +17,7 @@ public class ClientService implements IClientService{
 		if(!client.isValid()) {
 			return;
 		}
+		client.encryptPassword();
 		clientRepository.save(client);
 	}
 
