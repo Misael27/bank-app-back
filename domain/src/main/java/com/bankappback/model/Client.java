@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.apache.logging.log4j.util.Strings;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,8 +24,10 @@ public class Client extends Person implements ICommonDomain {
 	
 	private Long id;
 	
+	@NotNull(message = "PASSWORD_NOT_NULL")
 	private String password;
     
+	@NotNull(message = "STATE_NOT_NULL")
     private Boolean state;
     
     public Client(String name, EGenger gender, Date birthdate, String personId, 

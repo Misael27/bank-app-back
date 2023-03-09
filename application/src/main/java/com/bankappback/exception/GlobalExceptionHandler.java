@@ -39,6 +39,23 @@ public class GlobalExceptionHandler {
 	}
 	
 	/**
+	 * resourceNotFoundHandling
+	 * 
+	 * @param exception
+	 * @param request
+	 * @return ResponseEntity<?>
+	 */
+	@ExceptionHandler(ResourceBadRequestException.class)
+	public ResponseEntity<?> resourceBadRequestHandling(ResourceBadRequestException exception, WebRequest request) {
+		final ErrorDetails errorDetails = new ErrorDetails(
+				new Date(), 
+				exception.getMessage(),
+				400,
+				HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	/**
 	 * globalExceptionHandling
 	 * 
 	 * @param exception
