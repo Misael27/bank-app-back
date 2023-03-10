@@ -1,5 +1,7 @@
 package com.bankappback.service.impl;
 
+import java.util.List;
+
 import com.bankappback.exception.ResourceBadRequestException;
 import com.bankappback.exception.ResourceNotFoundException;
 import com.bankappback.model.Client;
@@ -30,6 +32,11 @@ public class ClientService implements IClientService {
 	@Override
 	public Client findById(Long clientId) {
 		return clientRepository.findById(clientId).orElseThrow(() -> new ResourceNotFoundException("ClientId "+clientId+" not found", "CLIENT_NOT_FOUND"));
+	}
+	
+	@Override
+	public List<Client> findAll() {
+		return clientRepository.findAll();
 	}
 
 	@Override

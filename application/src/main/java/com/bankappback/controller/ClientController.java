@@ -1,5 +1,7 @@
 package com.bankappback.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import jakarta.validation.Valid;
 
 /**
@@ -74,6 +77,24 @@ public class ClientController {
 			final @Parameter(description = "Client ID", in = ParameterIn.PATH, required = true) @PathVariable("clientId") Long clientId) {
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(clientId));
 	}
+	
+    /**
+     * GetProductSimilarsByProductId
+     * 
+     * @param productId
+     * @return
+     */
+    @Operation(summary = "Client list", tags = { "Client" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = 
+                    @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = Client.class)))),
+    })
+    @GetMapping(value = "/all", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<List<Client>> GetAllClient() {
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+    }
 	
 	
 	/**

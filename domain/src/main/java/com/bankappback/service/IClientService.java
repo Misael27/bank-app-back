@@ -1,5 +1,7 @@
 package com.bankappback.service;
 
+import java.util.List;
+
 import com.bankappback.model.Client;
 
 public interface IClientService {
@@ -15,5 +17,7 @@ public interface IClientService {
 	Client findById(Long clientId);
 
 	void delete(Long clientId);
+
+	List<Client> findAll();
 	
 }

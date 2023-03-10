@@ -1,5 +1,7 @@
 package com.bankappback.repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -38,6 +40,15 @@ public class ClientRepository implements IClientRepository {
 		ClientTable result = springDataClientRepository.findById(id).orElse(null);
 		Client client = result != null ? mapper.map(result, Client.class) : null;
 		return Optional.ofNullable(client);
+	}
+	
+	@Override
+	public List<Client> findAll() {
+		var result = new ArrayList<Client>();
+		springDataClientRepository.findAll().forEach(clienTable -> {
+			result.add(mapper.map(clienTable, Client.class));
+		});
+		return result;
 	}
 
 	@Override
