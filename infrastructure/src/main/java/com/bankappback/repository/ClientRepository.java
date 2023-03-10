@@ -37,7 +37,12 @@ public class ClientRepository implements IClientRepository {
 	public Optional<Client> findById(Long id) {
 		ClientTable result = springDataClientRepository.findById(id).orElse(null);
 		Client client = result != null ? mapper.map(result, Client.class) : null;
-		return Optional.of(client);
+		return Optional.ofNullable(client);
+	}
+
+	@Override
+	public void delete(Client client) {
+		springDataClientRepository.deleteById(client.getId());
 	}
 	
 }

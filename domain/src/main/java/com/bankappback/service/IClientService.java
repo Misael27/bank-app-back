@@ -11,5 +11,9 @@ public interface IClientService {
 	void create(Client client);
 
 	Client update(Long clientId, Client clientUpdate);
+
+	Client findById(Long clientId);
+
+	void delete(Long clientId);
 	
 }

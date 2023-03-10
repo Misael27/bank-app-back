@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -50,10 +52,29 @@ public class ClientController {
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = ErrorDetails.class)))})
 	@PostMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Client> postClient(final @Parameter(description = "Client create", required = true) @RequestBody @Valid Client client) {
+	public ResponseEntity<Client> postCreate(final @Parameter(description = "Client create", required = true) @RequestBody @Valid Client client) {
 		clientService.create(client);
 		return ResponseEntity.status(HttpStatus.CREATED).body(client);
 	}
+	
+	/**
+	 * GgetClientById
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	@Operation(summary = "Get client by id", tags = { "Client" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Client.class))),
+			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = ErrorDetails.class)))})
+	@GetMapping(value = "/{clientId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Client> getClientById(
+			final @Parameter(description = "Client ID", in = ParameterIn.PATH, required = true) @PathVariable("clientId") Long clientId) {
+		return ResponseEntity.status(HttpStatus.OK).body(clientService.findById(clientId));
+	}
+	
 	
 	/**
 	 * PutClient update
@@ -68,10 +89,29 @@ public class ClientController {
 			@ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = ErrorDetails.class)))})
 	@PutMapping(value = "/{clientId}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Client> putClient(
+	public ResponseEntity<Client> putUpdate(
 			final @Parameter(description = "Client ID", in = ParameterIn.PATH, required = true) @PathVariable("clientId") Long clientId,
 			final @Parameter(description = "Client update", required = true) @RequestBody @Valid Client client) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.update(clientId, client));
+		return ResponseEntity.status(HttpStatus.OK).body(clientService.update(clientId, client));
+	}
+	
+	/**
+	 * deleteClientById
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	@Operation(summary = "Delete client by id", tags = { "Client" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Client.class))),
+			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
+			@ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ErrorDetails.class))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = ErrorDetails.class)))})
+	@DeleteMapping(value = "/{clientId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Void> deleteClientById(
+			final @Parameter(description = "Client ID", in = ParameterIn.PATH, required = true) @PathVariable("clientId") Long clientId) {
+		clientService.delete(clientId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 }

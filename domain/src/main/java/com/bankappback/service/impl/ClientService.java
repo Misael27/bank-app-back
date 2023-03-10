@@ -26,10 +26,15 @@ public class ClientService implements IClientService {
 		client.setId(null);
 		clientRepository.save(client);
 	}
+	
+	@Override
+	public Client findById(Long clientId) {
+		return clientRepository.findById(clientId).orElseThrow(() -> new ResourceNotFoundException("ClientId "+clientId+" not found", "CLIENT_NOT_FOUND"));
+	}
 
 	@Override
 	public Client update(Long clientId, Client clientUpdate) {
-		Client client = clientRepository.findById(clientId).orElseThrow(() -> new ResourceNotFoundException("ClientId "+clientId+" not found", "CLIENT_NOT_FOUND"));
+		final Client client = findById(clientId);
 		if (!clientUpdate.getPersonId().equals(client.getPersonId()) && clientRepository.existsByPersonId(clientUpdate.getPersonId())) {
 			throw new ResourceBadRequestException("PERSON_ID_ALREADY_EXIST");
 		}
@@ -39,6 +44,12 @@ public class ClientService implements IClientService {
 		}
 		clientRepository.save(client);
 		return client;
+	}
+
+	@Override
+	public void delete(Long clientId) {
+		final Client client = findById(clientId);		
+		clientRepository.delete(client);
 	}
 
 }

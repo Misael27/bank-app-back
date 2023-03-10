@@ -4,16 +4,20 @@ package com.bankappback.mapping;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 import com.bankappback.model.EGenger;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -57,5 +61,8 @@ public class ClientTable {
     
     @Column(name = "state", nullable = false)
     private Boolean state;
+    
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) 
+    private List<AccountTable> accounts;
     
 }
