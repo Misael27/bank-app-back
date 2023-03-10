@@ -7,15 +7,10 @@ import java.util.Objects;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.MessageDigest;  
 
 /**
  * 
@@ -25,15 +20,10 @@ import java.security.MessageDigest;
 @NoArgsConstructor
 @Getter
 @Setter
-@SuppressWarnings("unused")
 public class Client extends Person implements ICommonDomain {
 	
-	private Long id;
-	
-	@NotNull(message = "PASSWORD_NOT_NULL")
-	private String password;
-    
-	@NotNull(message = "STATE_NOT_NULL")
+	private Long id;	
+	private String password;    
     private Boolean state;
     
     public Client(String name, EGenger gender, Date birthdate, String personId, 
@@ -49,7 +39,6 @@ public class Client extends Person implements ICommonDomain {
     }
     
     @Override
-    @JsonIgnore
     public boolean isValid() {
     	if (Strings.isEmpty(name) || Objects.isNull(gender) || Objects.isNull(birthdate) || birthdate.after(new Date())
     			|| Strings.isEmpty(personId) || Strings.isEmpty(address) || Strings.isEmpty(phone) || Strings.isEmpty(password)
@@ -59,12 +48,10 @@ public class Client extends Person implements ICommonDomain {
     	return true;
     }
     
-    @JsonIgnore
     public void encryptPassword() {
     	 password = getEncryptPass(password);
     }
     
-    @JsonIgnore
     private String getEncryptPass(String plainPassword) {
     	int strength = 10; // work factor of bcrypt
 	   	BCryptPasswordEncoder bCryptPasswordEncoder =
@@ -72,7 +59,6 @@ public class Client extends Person implements ICommonDomain {
 	   	return bCryptPasswordEncoder.encode(plainPassword);
     }
 
-    @JsonIgnore
 	public void update(Client clientUpdate) {
 		name = !Objects.isNull(clientUpdate.getName()) ? clientUpdate.getName() : name;
 		gender = !Objects.isNull(clientUpdate.getGender()) ? clientUpdate.getGender() : gender;

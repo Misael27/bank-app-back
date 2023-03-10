@@ -26,6 +26,10 @@ public class ClientRepository implements IClientRepository {
 	@Override
 	public void save(Client client) {
 		ClientTable clientTable = this.mapper.map(client, ClientTable.class);
+		if (clientTable.getId() != null) { //is update
+			clientTable.setAccounts(
+					springDataClientRepository.findById(clientTable.getId()).get().getAccounts());
+		}
 		springDataClientRepository.save(clientTable);
 		client.setId(clientTable.getId());
 	}
@@ -33,6 +37,11 @@ public class ClientRepository implements IClientRepository {
 	@Override
 	public Boolean existsByPersonId(String personId) {
 		return springDataClientRepository.existsByPersonId(personId);
+	}
+	
+	@Override
+	public Boolean existsById(Long id) {
+		return springDataClientRepository.existsById(id);
 	}
 
 	@Override

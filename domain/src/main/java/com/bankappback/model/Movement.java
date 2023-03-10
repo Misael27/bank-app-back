@@ -15,19 +15,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@SuppressWarnings("unused")
 public class Movement implements ICommonDomain {
 
 	private Long id;
-	
     private Date date;
-
 	private EMovementType type;
-    
     private Double value;
-    
     private Double balance;
-    
     private Account account;
     
     public Movement(EMovementType type, Double value, Double balance, Account account) {
@@ -45,5 +39,10 @@ public class Movement implements ICommonDomain {
     	}
     	return true;
     }
+
+	public void update(Movement movementUpdate) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

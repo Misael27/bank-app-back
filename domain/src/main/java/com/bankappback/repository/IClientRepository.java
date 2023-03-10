@@ -11,6 +11,8 @@ public interface IClientRepository {
 	
 	Boolean existsByPersonId(String personId);
 	
+	Boolean existsById(Long id);
+	
 	Optional<Client> findById(Long id);
 
 	void delete(Client client);
