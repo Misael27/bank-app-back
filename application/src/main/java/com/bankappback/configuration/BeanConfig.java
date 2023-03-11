@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Configuration;
 import com.bankappback.repository.IAccountRepository;
 import com.bankappback.repository.IClientRepository;
 import com.bankappback.repository.IMovementRepository;
+import com.bankappback.repository.IReportRepository;
 import com.bankappback.service.IAccountService;
 import com.bankappback.service.IClientService;
 import com.bankappback.service.IMovementService;
+import com.bankappback.service.IReportService;
 import com.bankappback.service.impl.AccountService;
 import com.bankappback.service.impl.ClientService;
 import com.bankappback.service.impl.MovementService;
+import com.bankappback.service.impl.ReportService;
 
 /**
  * Application
@@ -35,6 +38,11 @@ public class BeanConfig {
     @Bean
     IMovementService movementService(final IMovementRepository movementRepository, final IAccountRepository accountRepository) {
         return new MovementService(movementRepository, accountRepository);
+    }
+    
+    @Bean
+    IReportService reportService(IReportRepository reportRepository) {
+        return new ReportService(reportRepository);
     }
 		
 }
