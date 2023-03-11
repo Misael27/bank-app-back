@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.info.Info;
  * @author mjpol
  *
  */
-@SpringBootApplication(scanBasePackages = {"com.bankappback.test.*"})
+@SpringBootApplication(scanBasePackages = {"com.bankappback.*"})
 @PropertySources({
     @PropertySource("classpath:application.properties")
 })
