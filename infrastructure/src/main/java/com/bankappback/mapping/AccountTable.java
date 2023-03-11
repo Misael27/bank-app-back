@@ -51,7 +51,7 @@ public class AccountTable {
     private Boolean state;
     
     @ManyToOne(optional = false)
-    @JoinColumn(name="client_id", nullable=false, updatable=false)
+    @JoinColumn(name="client_id", nullable=false, updatable=true)
     private ClientTable client;
     
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) 

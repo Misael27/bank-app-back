@@ -48,7 +48,7 @@ public class ReportController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = MovementReport.class)))),
     })
-    @GetMapping(value = "/reports", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/movement-report", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<MovementReport>> GetMovementReport(
     		@RequestParam("clientId") Long clientId,
     		@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,

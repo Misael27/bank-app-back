@@ -1,6 +1,6 @@
 # Backend dev technical test solution
 
-Bank application
+Bank application. run with openApi on in http://localhost:5000/swagger-ui/index.html
 
 ## Features
 
