@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@SpringBootApplication(scanBasePackages = "com.bankappback.*")
+@SpringBootApplication(scanBasePackages = "com.bankappback.test.*")
 @PropertySources({
     @PropertySource("classpath:infrastructure.properties")
 })
-@EnableJpaRepositories(basePackages = {"com.bankappback.repository.springdata"})
+@EnableJpaRepositories(basePackages = {"com.bankappback.test.repository.springdata"})
 @Configuration
-@EntityScan("com.bankappback.mapping")
+@EntityScan("com.bankappback.test.mapping")
 public class InfrastructureConfiguration {
 	
 }

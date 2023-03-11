@@ -8,7 +8,7 @@
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bankappback</groupId>
+	<groupId>com.bankappback.test</groupId>
 	<artifactId>application-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>application-app</name>
@@ -44,12 +44,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		  <groupId>com.bankappback</groupId>
+		  <groupId>com.bankappback.test</groupId>
 		  <artifactId>domain-app</artifactId>
 		  <version>${project.version}</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.bankappback</groupId>
+		  <groupId>com.bankappback.test</groupId>
 		  <artifactId>infrastructure-app</artifactId>
 		  <version>${project.version}</version>
 		</dependency>
