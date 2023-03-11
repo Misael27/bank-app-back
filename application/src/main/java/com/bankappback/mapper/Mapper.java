@@ -23,24 +23,24 @@ public class Mapper<E, C, U, R> {
 		this.mapper.getConfiguration().setSkipNullEnabled(true);
 	}
 	
-	public R mapEntityToResponse(E account) {
-		var result = mapper.map(account, responseClass);
+	public R mapEntityToResponse(E entity) {
+		var result = mapper.map(entity, responseClass);
 		return result;
 	}
 
 	public E mapDtoToEntity(C request) {
-		final E account = mapper.map(request, entityClass);
-		return account;
+		final E result = mapper.map(request, entityClass);
+		return result;
 	}
 
-	public List<R> mapAllEntityToResponse(List<E> accounts) {
-		return accounts.stream()
+	public List<R> mapAllEntityToResponse(List<E> values) {
+		return values.stream()
 		.map(entity -> mapper.map(entity, responseClass))
         .collect(Collectors.toList());
 	}
 
 	public E mapDtoUpdateToEntity(U request) {
-		final E account = mapper.map(request, entityClass);
-		return account;
+		final E entity = mapper.map(request, entityClass);
+		return entity;
 	}
 }

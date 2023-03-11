@@ -15,4 +15,8 @@ public interface IMovementRepository {
 
 	List<Movement> findAll();
 
+	Optional<Movement> findLastMovementByAccountId(Long accountId);
+
+	Double getTodayDebitTotal(Long accountId);
+
 }

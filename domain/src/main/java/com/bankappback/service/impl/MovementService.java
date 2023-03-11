@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.bankappback.exception.ResourceBadRequestException;
 import com.bankappback.exception.ResourceNotFoundException;
+import com.bankappback.model.Account;
+import com.bankappback.model.EMovementType;
 import com.bankappback.model.Movement;
 import com.bankappback.repository.IMovementRepository;
 import com.bankappback.repository.IAccountRepository;
@@ -22,9 +24,30 @@ public class MovementService implements IMovementService {
 	@Override
 	public void create(Movement movement) {
 		validatePreCreate(movement);
-		movement.setId(null);
+		movement.addBalance(getAccountBalance(movement.getAccount().getId()));
+		if (!movement.isBalanceValid()) {
+			throw new ResourceBadRequestException("Saldo no disponible");
+		}
+		if (movement.getType() == EMovementType.Retiro &&
+				!movement.canDebitToday(movementRepository.getTodayDebitTotal(movement.getAccount().getId()))) {
+			throw new ResourceBadRequestException("Cupo diario Excedido");
+		}
 		movementRepository.save(movement);
 	}
+	
+	private Double getAccountBalance(Long accountId) {
+		Movement lastMovement = movementRepository.findLastMovementByAccountId(accountId).orElse(null);
+		if (lastMovement != null) {
+			return lastMovement.getBalance();
+		}
+		Account account = accountRepository.findById(accountId).orElse(null);
+		if (account != null) {
+			return account.getInitBalance();
+		}
+		throw new ResourceNotFoundException("AccountId "+accountId+" not found", "ACCOUNT_NOT_FOUND");
+	}
+
+	
 
 	@Override
 	public Movement findById(Long movementId) {
@@ -46,10 +69,9 @@ public class MovementService implements IMovementService {
 		if(!movement.isValid()) {
 			throw new ResourceBadRequestException("INVALID_REQUEST");
 		}
-	}
-	
-	private void validatePreUpdate(Movement movement, Movement movementUpdate) {
-		movement.update(movementUpdate);
+		if(!accountRepository.existsById(movement.getAccount().getId())) {
+			throw new ResourceNotFoundException("AccountId "+movement.getAccount().getId()+" not found", "ACCOUNT_NOT_FOUND");
+		}
 	}
 
 }

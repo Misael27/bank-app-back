@@ -21,7 +21,6 @@ public class ClientService implements IClientService {
 	public void create(Client client) {
 		validatePreCreate(client);
 		client.encryptPassword();
-		client.setId(null);
 		clientRepository.save(client);
 	}
 

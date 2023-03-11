@@ -63,6 +63,7 @@ public class ClientController {
 	@PostMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ClientResponse> postCreate(final @Parameter(description = "Client create", required = true) @RequestBody @Valid ClientCreateRequest request) {
 		Client client = mapper.mapDtoToEntity(request);
+		client.setPersonId(request.getPerson());
 		clientService.create(client);
 		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.mapEntityToResponse(client));
 	}

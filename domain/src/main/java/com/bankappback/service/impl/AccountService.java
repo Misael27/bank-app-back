@@ -22,7 +22,6 @@ public class AccountService implements IAccountService {
 	@Override
 	public void create(Account account) {
 		validatePreCreate(account);
-		account.setId(null);
 		accountRepository.save(account);
 	}
 

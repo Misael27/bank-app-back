@@ -1,6 +1,9 @@
 package com.bankappback.repository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,10 +48,24 @@ public class MovementRepository implements IMovementRepository {
 		});
 		return result;
 	}
-
+	
 	@Override
 	public void delete(Movement movement) {
 		springDataMovementRepository.deleteById(movement.getId());
+	}
+	
+	@Override
+	public Optional<Movement> findLastMovementByAccountId(Long accountId) {
+		MovementTable result = springDataMovementRepository.findFirstByAccountIdOrderByDateDesc(accountId).orElse(null);
+		Movement movement = result != null ? mapper.map(result, Movement.class) : null;
+		return Optional.ofNullable(movement);
+	}
+	
+	@Override
+	public Double getTodayDebitTotal(Long accountId) {
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		return springDataMovementRepository.sumDebitByAccountAndDate(accountId, localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth()).orElse(0.0d);
 	}
 	
 }

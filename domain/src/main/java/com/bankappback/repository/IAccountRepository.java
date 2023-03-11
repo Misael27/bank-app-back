@@ -17,4 +17,6 @@ public interface IAccountRepository {
 
 	Boolean existsByNumber(String number);
 
+	Boolean existsById(Long id);
+
 }

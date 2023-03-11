@@ -44,7 +44,7 @@ public class ClientTable {
 	private EGenger gender;
     
     @Column(name = "birthdate")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
     
     @Column(name = "person_id", unique = true, nullable = false)

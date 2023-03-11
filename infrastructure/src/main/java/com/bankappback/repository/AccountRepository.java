@@ -26,6 +26,10 @@ public class AccountRepository implements IAccountRepository {
 	@Override
 	public void save(Account account) {
 		AccountTable accountTable = this.mapper.map(account, AccountTable.class);
+		if (accountTable.getId() != null) { //is update
+			accountTable.setMovements(
+					springDataAccountRepository.findById(accountTable.getId()).get().getMovements());
+		}
 		springDataAccountRepository.save(accountTable);
 		account.setId(accountTable.getId());
 	}
@@ -54,6 +58,11 @@ public class AccountRepository implements IAccountRepository {
 	@Override
 	public void delete(Account account) {
 		springDataAccountRepository.deleteById(account.getId());
+	}
+
+	@Override
+	public Boolean existsById(Long id) {
+		return springDataAccountRepository.existsById(id);
 	}
 	
 }
